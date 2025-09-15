@@ -106,8 +106,9 @@ Debounce
             mov.w   #50000, R10
 L_Debounce  dec.w   R10
             jnz     L_Debounce
+            mov.w   #50000, R10
             dec.w   R11
-            jnz     Debounce
+            jnz     L_Debounce
             ret
 
 ;-------------------------------------------------------------------------------
@@ -128,6 +129,8 @@ P5_ISR
             bic.b   #0x40, &P5IFG           ; Clear SW1 interrupt flag
             jmp     Exit_P5_ISR
 CheckSW2
+            bit.b   #0x20, &P5IFG           ; Check if SW2 (P5.5) caused the interrupt
+            jz      Exit_P5_ISR             ; If not, exit
             mov.w   #2, R13                 ; Set flag for SW2
             bic.b   #0x20, &P5IFG           ; Clear SW2 interrupt flag
 Exit_P5_ISR
