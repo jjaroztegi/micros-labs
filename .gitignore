@@ -17,6 +17,7 @@ makefile
 .config/
 .launches/
 targetConfigs/
+.settings/
 
 # Generated files
 .xdchelp
